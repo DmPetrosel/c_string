@@ -1,9 +1,15 @@
 #define s21_size_t unsigned long
 #define s21_NULL ((void*)0)
+
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
 char * s21_strchr(const char * str, int ch);
 int s21_strncmp(const char *str1, const char *str2, s21_size_t n);
+char *s21_strncpy(char *dest, const char *src, s21_size_t n);
+s21_size_t s21_strlen(const char *str);
+
 int main(){
     char * str = "Anyhow small text\n";
     char *char_pointer = strchr(str, 'y');
@@ -20,8 +26,38 @@ int main(){
     s21_size_t n = 5;
     printf("Original %d\n", strncmp(str1, str2, n));
     printf("My %d\n", s21_strncmp(str1, str2, n));
+    printf("strlen:\n\n");
+
+    printf("Original %ld\n", strlen(str));
+    printf("My %ld\n", s21_strlen(str));
+
+    printf("strncpy:\n\n");
+    char dest [] = "Many";
+    char src [] = "some elem";
+    strncpy(dest, src, 15);
+    printf("%s\n",dest);
+    char dest1 [] = "Many";
+    char src1 [] = "some elem";
+    s21_strncpy(dest1, src1, 15);
+    printf("%s\n",dest1);
+
     return 0;
 }
+s21_size_t s21_strlen(const char *str){
+    s21_size_t i = 0;
+    while(str[i]!=0){
+        i++;
+    }
+    return i;
+}
+
+char *s21_strncpy(char *dest, const char *src, s21_size_t n){
+  for(s21_size_t i = 0; i < n; i++){
+    dest[i] = src[i];
+  }
+  return dest;
+}
+
 int s21_strncmp(const char *str1, const char *str2, s21_size_t n){
     s21_size_t i;
     for(i = 0; i < n && str1[i]!='\0'&&str2[i]!='\0' && str1[i]==str2[i]; i++)
