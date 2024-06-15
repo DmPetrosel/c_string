@@ -9,6 +9,8 @@ char * s21_strchr(const char * str, int ch);
 int s21_strncmp(const char *str1, const char *str2, s21_size_t n);
 char *s21_strncpy(char *dest, const char *src, s21_size_t n);
 s21_size_t s21_strlen(const char *str);
+s21_size_t s21_strcspn(const char *str1, const char *str2);
+
 
 int main(){
     char * str = "Anyhow small text\n";
@@ -41,8 +43,28 @@ int main(){
     s21_strncpy(dest1, src1, 15);
     printf("%s\n",dest1);
 
+     // Массив со строкой для поиска
+    char strcs []="0123456789";
+    // Набор символов, которые не должны входить в искомый сегмент
+    char sym [10]="9876";
+  
+    // Определяем длину начального сегмента, не содержащего символы “9876”
+    printf ("Длина сегмента: %ld\n",strcspn (strcs,sym));
+    printf ("my Длина сегмента: %ld\n",s21_strcspn (strcs,sym));
     return 0;
 }
+
+s21_size_t s21_strcspn(const char *str1, const char *str2){
+    s21_size_t i;
+    for(i = 0; str1[i]!='\0'; i++){
+        for(s21_size_t j = 0; str2[j]!='\0'; j++){
+            if(str1[i]==str2[j]) return i;         
+        }
+        
+    }
+    return i;
+}
+
 s21_size_t s21_strlen(const char *str){
     s21_size_t i = 0;
     while(str[i]!=0){
