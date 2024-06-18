@@ -14,13 +14,12 @@ int main()
     return 0;
 }
 
-#define ERROR "Unknown error: "
+
 
 #if defined(__linux__)
 #define S21_ERRLIST_SIZE 134
 
 static char * s21_error_list [S21_ERRLIST_SIZE] = {
-
 "Success",
 "Operation not permitted",
 "No such file or directory",
@@ -155,7 +154,6 @@ static char * s21_error_list [S21_ERRLIST_SIZE] = {
 "State not recoverable",
 "Operation not possible due to RF-kill",
 "Memory page has hardware error",
-
 };
 #endif
 
@@ -270,14 +268,17 @@ static char *const s21_error_list [S21_ERRLIST_SIZE] = {
     [105] = "Previous owner died",
     [106] = "Interface output queue is full"};
 #endif
+#define s21_ERROR "Unknown error "
 
 char * s21_strerror(int s21_errno){
-    char * error = s21_NULL;
-    if(s21_errno < 0 && s21_errno > S21_ERRLIST_SIZE){
-        error = ERROR;
+    static char s21_error[256];
+    printf("s21_error %d \n", s21_errno);
+
+    if(s21_errno < 0 || s21_errno >= S21_ERRLIST_SIZE){
+        sprintf(s21_error, "%s%d", s21_ERROR, s21_errno);       
     }
     else{
-        error = s21_error_list[s21_errno];
+        strcpy(s21_error, s21_error_list[s21_errno]);
     }
-    return error;
+    return s21_error;
 }
