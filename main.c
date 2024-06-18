@@ -10,6 +10,7 @@ int s21_strncmp(const char *str1, const char *str2, s21_size_t n);
 char *s21_strncpy(char *dest, const char *src, s21_size_t n);
 s21_size_t s21_strlen(const char *str);
 s21_size_t s21_strcspn(const char *str1, const char *str2);
+char * s21_strpbrk( const char * str1, const char * str2);
 
 
 int main(){
@@ -51,8 +52,28 @@ int main(){
     // Определяем длину начального сегмента, не содержащего символы “9876”
     printf ("Длина сегмента: %ld\n",strcspn (strcs,sym));
     printf ("my Длина сегмента: %ld\n",s21_strcspn (strcs,sym));
+    
+    char str11 [] = "Many elements";
+    char str22 [] = "o";
+    ;
+    printf("s21_strpbrk(str11, str22)\t%s\n",s21_strpbrk(str11, str22));
+    printf("s21_strpbrk(str11, str22)\t%s\n",strpbrk(str11, str22));
+
     return 0;
 }
+char * s21_strpbrk( const char * str1, const char * str2){
+    char * result = (char*)str1;
+    s21_size_t i;
+    for(i = 0; str1[i]!='\0'; i++){
+        for(s21_size_t j = 0; str2[j]!='\0'; j++)
+        {
+            if(str1[i]==str2[j]) return result+= i;
+        }
+    }
+    if(str1[i]=='\0') result = s21_NULL;
+    return result;
+}
+
 
 s21_size_t s21_strcspn(const char *str1, const char *str2){
     s21_size_t i;
