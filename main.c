@@ -11,6 +11,7 @@ char *s21_strncpy(char *dest, const char *src, s21_size_t n);
 s21_size_t s21_strlen(const char *str);
 s21_size_t s21_strcspn(const char *str1, const char *str2);
 char * s21_strpbrk( const char * str1, const char * str2);
+char * s21_strrchr(const char * str, int ch);
 
 
 int main(){
@@ -58,6 +59,12 @@ int main(){
     ;
     printf("s21_strpbrk(str11, str22)\t%s\n",s21_strpbrk(str11, str22));
     printf("s21_strpbrk(str11, str22)\t%s\n",strpbrk(str11, str22));
+
+    char strr [] = "many elements";
+    char charr = 'm';
+    printf("strrchr \"%s\"\n", strrchr(strr, charr));
+    printf("strrchr \"%s\"\n", s21_strrchr(strr, charr));
+
 
     return 0;
 }
@@ -117,5 +124,17 @@ char * s21_strchr(const char * str, int ch){
     }
     if(str[i]=='\0') result = s21_NULL;
     else result+= i;
+    return result;
+}
+
+char * s21_strrchr(const char * str, int ch){
+    char * result = (char*)str;
+    unsigned char cha = ch;
+    int i = s21_strlen(str);
+    while(cha!=str[i] && i >= 0){
+        i--;
+    }
+    if(i != -1) result += i;
+    else result = s21_NULL;
     return result;
 }
