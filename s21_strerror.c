@@ -1,20 +1,4 @@
-#include <errno.h>
-#include <stdio.h>
-#include <string.h>
-
-#define s21_NULL ((void*)0)
-
-char * s21_strerror(int s21_errno);
-
-int main()
-{
-    for(int i = 0; i < 140; i++){
-        printf("%d\t%s\n", i, s21_strerror(i));
-    }
-    return 0;
-}
-
-
+#include "s21_string.h"
 
 #if defined(__linux__)
 #define S21_ERRLIST_SIZE 134
@@ -272,7 +256,6 @@ static char *const s21_error_list [S21_ERRLIST_SIZE] = {
 
 char * s21_strerror(int s21_errno){
     static char s21_error[256];
-    printf("s21_error %d \n", s21_errno);
 
     if(s21_errno < 0 || s21_errno >= S21_ERRLIST_SIZE){
         sprintf(s21_error, "%s%d", s21_ERROR, s21_errno);       

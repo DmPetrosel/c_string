@@ -1,18 +1,4 @@
-#define s21_size_t unsigned long
-#define s21_NULL ((void*)0)
-
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
-char * s21_strchr(const char * str, int ch);
-int s21_strncmp(const char *str1, const char *str2, s21_size_t n);
-char *s21_strncpy(char *dest, const char *src, s21_size_t n);
-s21_size_t s21_strlen(const char *str);
-s21_size_t s21_strcspn(const char *str1, const char *str2);
-char * s21_strpbrk( const char * str1, const char * str2);
-char * s21_strrchr(const char * str, int ch);
-
+#include "s21_string.h"
 
 int main(){
     char * str = "Anyhow small text\n";
@@ -65,76 +51,8 @@ int main(){
     printf("strrchr \"%s\"\n", strrchr(strr, charr));
     printf("strrchr \"%s\"\n", s21_strrchr(strr, charr));
 
-
+    for(int i = 0; i < 140; i++){
+        printf("%d\t%s\n", i, s21_strerror(i));
+    }
     return 0;
-}
-char * s21_strpbrk( const char * str1, const char * str2){
-    char * result = (char*)str1;
-    s21_size_t i;
-    for(i = 0; str1[i]!='\0'; i++){
-        for(s21_size_t j = 0; str2[j]!='\0'; j++)
-        {
-            if(str1[i]==str2[j]) return result+= i;
-        }
-    }
-    if(str1[i]=='\0') result = s21_NULL;
-    return result;
-}
-
-
-s21_size_t s21_strcspn(const char *str1, const char *str2){
-    s21_size_t i;
-    for(i = 0; str1[i]!='\0'; i++){
-        for(s21_size_t j = 0; str2[j]!='\0'; j++){
-            if(str1[i]==str2[j]) return i;         
-        }
-        
-    }
-    return i;
-}
-
-s21_size_t s21_strlen(const char *str){
-    s21_size_t i = 0;
-    while(str[i] != '\0'){
-        i++;
-    }
-    return i;
-}
-
-char *s21_strncpy(char *dest, const char *src, s21_size_t n){
-  for(s21_size_t i = 0; i < n; i++){
-    dest[i] = src[i];
-  }
-  return dest;
-}
-
-int s21_strncmp(const char *str1, const char *str2, s21_size_t n){
-    s21_size_t i;
-    for(i = 0; i < n && str1[i]!='\0'&&str2[i]!='\0' && str1[i]==str2[i]; i++)
-        ;
-    return (i == n)? 0:((str1[i]==0)?-str2[i]:str1[i]);
-}
-
-char * s21_strchr(const char * str, int ch){
-    char * result = (char*)str;
-    unsigned char cha = ch;
-    int i = 0;
-    while(str[i]!=cha && str[i]!='\0'){
-        i++;
-    }
-    if(str[i]=='\0') result = s21_NULL;
-    else result+= i;
-    return result;
-}
-
-char * s21_strrchr(const char * str, int ch){
-    char * result = (char*)str;
-    unsigned char cha = ch;
-    int i = s21_strlen(str);
-    while(cha!=str[i] && i >= 0){
-        i--;
-    }
-    if(i != -1) result += i;
-    else result = s21_NULL;
-    return result;
 }
